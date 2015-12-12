@@ -12,6 +12,11 @@ class window.Hand extends Backbone.Collection
     # trigger turnEnded
     @trigger("stand", @)
 
+  doubleDown: ->
+    @add(@deck.pop())
+    @last()
+    @trigger("doubleDown", @)
+
   hasAce: -> @reduce (memo, card) ->
     memo or card.get('value') is 1
   , 0

@@ -5,16 +5,20 @@
   border-radius: 5px;
   height: 170px;
   margin-right: 20px;
+  background-size: 100% 100%;
   /*background-image: url();*/
 }
 
 .covered {
-  background-image: url("card-back.png");
-  background-size: 100% 100%; 
+  background-image: url("../card-back.png") !important;
+  background-size: 100% 100%;
   color: rgba(0, 0, 0, 0);
-
 }
 
 .hand {
   overflow: auto;
+}
+
+.covered div {
+  height: 0px !important;
 }

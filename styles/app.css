@@ -1,14 +1,18 @@
 .card {
   float: left;
   border: solid 1px black;
-  width: 100px;
+  width: 120px;
   border-radius: 5px;
-  height: 140px;
+  height: 170px;
   margin-right: 20px;
+  /*background-image: url();*/
 }
 
 .covered {
-  background-color: black;
+  background-image: url("card-back.png");
+  background-size: 100% 100%; 
+  color: rgba(0, 0, 0, 0);
+
 }
 
 .hand {

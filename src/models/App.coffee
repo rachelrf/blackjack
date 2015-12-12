@@ -16,24 +16,25 @@ class window.App extends Backbone.Model
     dealerPlay = (dealerScore, playerScore) -> 
       if dealerScore >= 17 
           if dealerScore > 21 
-            if playerScore <= 21 then displayResult 'You win!' else displayResult 'You lose!'
+            if playerScore <= 21 then displayResult '1You win!' else displayResult '2You lose!'
           if dealerScore == 21
-            if playerScore == 21 then displayResult 'Tie!' else displayResult 'You lose!'
+            if playerScore == 21 then displayResult '3Tie!' else displayResult '4You lose!'
           if dealerScore < 21
-            if dealerScore > playerScore then displayResult 'You lose!' else displayResult 'You win!'
+            if dealerScore < playerScore && playerScore <= 21 then displayResult '5You win!' else displayResult '6You lose!'
 
         if dealerScore < 17
           dealerHand.hit()
           dealerScore = dealerHand.scores()[0]
-          dealerPlay(dealerScore, playerScore)
+          setTimeout (-> dealerPlay(dealerScore, playerScore)), 1000 
 
 
     @listenTo playerHand,'stand', => 
       dealerHand.models[0].flip()
       playerScore = playerHand.scores()[0]
       dealerScore = dealerHand.scores()[0]
-      dealerPlay(dealerScore, playerScore)
+      setTimeout (-> dealerPlay(dealerScore, playerScore)), 1000 
 
     @listenTo playerHand, 'hit', =>
       playerScore = playerHand.scores()[0]
       if playerScore >= 21 then playerHand.trigger("stand")
+

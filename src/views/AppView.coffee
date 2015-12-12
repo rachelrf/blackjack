@@ -18,19 +18,20 @@ class window.AppView extends Backbone.View
     'click button': ->
       if @model.get('playerHand').scores()[0] >= 21 then @disableButtons()
     'click .split-button': ->
-      # stuff will happen
+      @model.get('playerHand').split()
+      @splitRender()
+
+  splitRender: ->
+     #@$('.player-hand-container').append new HandView(collection: @model.get 'splitHand').el
+     console.log('got to splitrender in app view')
+     @render()
 
   initialize: ->
     @render()
     hand = @model.get('playerHand').models
-    console.dir(hand)
-    console.log('first', hand[0].get 'value')
-    console.log('second', hand[1].get 'value')
     if hand[0].get('value') == hand[1].get('value')
-      console.log('should be setting diabled false')
       @el.childNodes[6].disabled = false
     else 
-      console.log('should be setting diabled true')
       @el.childNodes[6].disabled = true
     if @model.get('playerHand').scores()[0] == 21 then @model.get('playerHand').stand()
 
@@ -39,7 +40,9 @@ class window.AppView extends Backbone.View
     @$el.html @template()
     @$('.player-hand-container').html new HandView(collection: @model.get 'playerHand').el
     @$('.dealer-hand-container').html new HandView(collection: @model.get 'dealerHand').el
-    # console.dir(@model.get('playerHand'))
+    if @model.get('splitHand')?
+      console.log('tryna render')
+      @$('.player-hand-container').append new HandView(collection: @model.get 'splitHand').el
 
   disableButtons: ->
     @el.childNodes[0].disabled = true

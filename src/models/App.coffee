@@ -8,6 +8,7 @@ class window.App extends Backbone.Model
 
     playerHand = @get 'playerHand' 
     dealerHand = @get 'dealerHand'
+    
 
     displayResult = (message) ->
       alert(message)
@@ -40,4 +41,10 @@ class window.App extends Backbone.Model
 
     @listenTo playerHand, 'doubleDown', =>
       playerHand.trigger("stand")
+
+    @listenTo playerHand, "split", =>
+      @set 'splitHand', deck.dealPlayer()
+      console.log('got to split in app model', @get 'splitHand')
+      # @get('splitHand').trigger("splitRender")
+
 

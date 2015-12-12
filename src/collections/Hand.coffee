@@ -17,6 +17,9 @@ class window.Hand extends Backbone.Collection
     @last()
     @trigger("doubleDown", @)
 
+  split: ->
+    @trigger("split", @)
+
   hasAce: -> @reduce (memo, card) ->
     memo or card.get('value') is 1
   , 0

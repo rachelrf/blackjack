@@ -23,7 +23,6 @@ class window.AppView extends Backbone.View
 
   splitRender: ->
      #@$('.player-hand-container').append new HandView(collection: @model.get 'splitHand').el
-     console.log('got to splitrender in app view')
      @render()
 
   initialize: ->
@@ -41,12 +40,11 @@ class window.AppView extends Backbone.View
     @$('.player-hand-container').html new HandView(collection: @model.get 'playerHand').el
     @$('.dealer-hand-container').html new HandView(collection: @model.get 'dealerHand').el
     if @model.get('splitHand')?
-      console.log('tryna render')
       @$('.player-hand-container').append new HandView(collection: @model.get 'splitHand').el
 
   disableButtons: ->
-    @el.childNodes[0].disabled = true
-    @el.childNodes[2].disabled = true
-    @el.childNodes[4].disabled = true
-    @el.childNodes[6].disabled = true
+    # @el.childNodes[0].disabled = true
+    # @el.childNodes[2].disabled = true
+    # @el.childNodes[4].disabled = true
+    # @el.childNodes[6].disabled = true
 

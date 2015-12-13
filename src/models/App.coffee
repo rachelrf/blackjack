@@ -35,7 +35,32 @@ class window.App extends Backbone.Model
       console.log('entered stand, already split is', alreadySplit)
       if splitHand? && alreadySplit != true
         @set 'playerHand', splitHand
+        playerHand = @get 'playerHand'
         alreadySplit = true
+
+        @listenTo playerHand,'stand', =>
+          dealerHand.models[0].flip()
+          playerScore = playerHand.scores()[0]
+          dealerScore = dealerHand.scores()[0]
+          setTimeout (-> dealerPlay(dealerScore, playerScore)), 1000
+
+        @listenTo playerHand, 'hit', =>
+          console.log('hit listened to')
+          playerScore = playerHand.scores()[0]
+          if playerScore >= 21 then playerHand.trigger("stand")
+
+        @listenTo playerHand, 'doubleDown', =>
+          playerHand.trigger("stand")
+
+        @listenTo playerHand, "split", =>
+          @set 'splitHand', deck.dealPlayer()
+          splitHand = @get 'splitHand' 
+          temp = splitHand.models[0]
+          splitHand.models[0] = playerHand.models[1]
+          playerHand.models[1] = temp
+          console.log('got to split in app model', @get 'splitHand')
+          # @get('splitHand').trigger("splitRender")
+
       else 
         dealerHand.models[0].flip()
         playerScore = playerHand.scores()[0]
